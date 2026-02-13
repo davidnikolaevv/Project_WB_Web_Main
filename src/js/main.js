@@ -9,12 +9,19 @@
 // });
 
 // Мобильная навигация
-import mobileNav from './modules/mobile-nav.js';
-mobileNav();
+// import mobileNav from './modules/mobile-nav.js';
+// mobileNav();
 
 // Scroll Reveal
-import scrollRevealFunc from './modules/scroll-reveal.js'
-scrollRevealFunc();
+// import scrollRevealFunc from './modules/scroll-reveal.js'
+// scrollRevealFunc();
+
+
+// Modals
+import modalsOpen from './modules/modals-open.js';
+modalsOpen();
+
+
 
 
 
