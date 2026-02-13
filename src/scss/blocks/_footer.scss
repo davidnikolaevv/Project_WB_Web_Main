@@ -1,0 +1,21 @@
+.site-footer {
+        background-color: var(--primary-color);
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 10px;
+    }
+    .footer-curve {
+        height: 24px;
+        background: linear-gradient(to right, #ca11ab, #481173);
+        transform: scaleY(-1);
+        mask-image: radial-gradient(140% 70% at 50% 0%, black 50%, transparent 50.5%);
+        -webkit-mask-image: radial-gradient(140% 70% at 50% 0%, black 50%, transparent 50.5%);
+    }
+    .footer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px;
+        text-align: center;
+    }
+    .copyright {
+        font-size: 13px;
+    }

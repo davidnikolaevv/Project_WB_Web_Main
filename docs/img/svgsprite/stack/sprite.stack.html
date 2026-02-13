@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>SVG stack preview | svg-sprite</title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                color: #666;
+                background: #fafafa;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 1em;
+                line-height: 1.4;
+            }
+
+            header {
+                display: block;
+                padding: 3em 3em 2em;
+                background-color: #fff;
+            }
+
+            header p {
+                margin: 2em 0 0;
+            }
+
+            section {
+                border-top: 1px solid #eee;
+                padding: 2em 3em 0;
+            }
+
+            section ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            section li {
+                display: inline-block;
+                background-color: #fff;
+                position: relative;
+                margin: 0 2em 2em 0;
+                vertical-align: top;
+                border: 1px solid #ccc;
+                padding: 1em 1em 3em;
+                cursor: default;
+            }
+
+            .icon-box {
+                margin: 0;
+                width: 144px;
+                height: 144px;
+                position: relative;
+                background: #ccc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%23fff' d='M6 0h6v6H6zM0 6h6v6H0z'/%3E%3C/svg%3E") top left repeat;
+                border: 1px solid #ccc;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+
+            .icon {
+                display: inline-block;
+            }
+
+            h1 {
+                margin-top: 0;
+            }
+
+            h2 {
+                margin: 0;
+                padding: 0;
+                font-size: 1em;
+                font-weight: 400;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                position: absolute;
+                left: 1em;
+                right: 1em;
+                bottom: 1em;
+            }
+
+            footer {
+                display: block;
+                margin: 0;
+                padding: 0 3em 3em;
+            }
+
+            footer p {
+                margin: 0;
+                font-size: .7em;
+            }
+
+            footer a {
+                color: #0f7595;
+                margin-left: 0;
+            }
+        </style>
+
+<!--
+Sprite shape dimensions
+====================================================================================================
+You will need to set the sprite shape dimensions via CSS when you use them as stack SVGs, otherwise
+they would become a huge 100% in size. You may use the following dimension classes for doing so.
+They might well be outsourced to an external stylesheet of course.
+-->
+
+<style>
+ .svg-favicons--21_31-dims { width: 28px; height: 24px; }
+ .svg-favicons--favicon-dims { width: 260px; height: 260px; }
+ .svg-logo-dims { width: 414px; height: 30px; }
+ .svg-svgicons--21_31-dims { width: 28px; height: 24px; }
+ .svg-svgicons--21_32-dims { width: 28px; height: 24px; }
+ .svg-svgicons--21_40-dims { width: 24px; height: 24px; }
+ .svg-svgicons--21_41-dims { width: 20px; height: 21px; }
+ .svg-svgicons--21_49-dims { width: 19px; height: 20px; }
+ .svg-svgicons--21_55-dims { width: 28px; height: 28px; }
+ .svg-svgicons--21_56-dims { width: 27px; height: 23px; }
+ .svg-svgicons--34520_16-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34520_17-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34520_18-dims { width: 6px; height: 6px; }
+ .svg-svgicons--34520_22-dims { width: 30px; height: 10px; }
+ .svg-svgicons--34520_24-dims { width: 9px; height: 8px; }
+ .svg-svgicons--34520_25-dims { width: 11px; height: 8px; }
+ .svg-svgicons--34520_26-dims { width: 9px; height: 8px; }
+ .svg-svgicons--34520_31-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34520_32-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34520_36-dims { width: 32px; height: 12px; }
+ .svg-svgicons--34520_37-dims { width: 32px; height: 11px; }
+ .svg-svgicons--34520_42-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34520_43-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34520_47-dims { width: 24px; height: 14px; }
+ .svg-svgicons--34520_48-dims { width: 1px; height: 1px; }
+ .svg-svgicons--34520_49-dims { width: 7px; height: 11px; }
+ .svg-svgicons--34520_50-dims { width: 12px; height: 14px; }
+ .svg-svgicons--34520_51-dims { width: 12px; height: 14px; }
+ .svg-svgicons--34520_56-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34520_57-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34520_61-dims { width: 24px; height: 14px; }
+ .svg-svgicons--34520_62-dims { width: 7px; height: 11px; }
+ .svg-svgicons--34520_63-dims { width: 12px; height: 14px; }
+ .svg-svgicons--34520_64-dims { width: 12px; height: 14px; }
+ .svg-svgicons--34520_8-dims { width: 15px; height: 15px; }
+ .svg-svgicons--34521_103-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_104-dims { width: 15px; height: 16px; }
+ .svg-svgicons--34521_107-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_108-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34521_114-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_115-dims { width: 15px; height: 16px; }
+ .svg-svgicons--34521_118-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_119-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34521_126-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_127-dims { width: 15px; height: 16px; }
+ .svg-svgicons--34521_136-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34521_137-dims { width: 15px; height: 16px; }
+ .svg-svgicons--34521_138-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34521_139-dims { width: 1px; height: 5px; }
+ .svg-svgicons--34521_140-dims { width: 1px; height: 5px; }
+ .svg-svgicons--34521_141-dims { width: 1px; height: 5px; }
+ .svg-svgicons--34521_79-dims { width: 15px; height: 15px; }
+ .svg-svgicons--34521_95-dims { width: 20px; height: 20px; }
+ .svg-svgicons--34521_96-dims { width: 16px; height: 16px; }
+ .svg-svgicons--34521_97-dims { width: 6px; height: 6px; }
+ .svg-svgicons--4907_8-dims { width: 20px; height: 20px; }
+ .svg-svgicons--4907_9-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2001-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2002-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2003-dims { width: 13px; height: 11px; }
+ .svg-svgicons--7_2006-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2007-dims { width: 16px; height: 9px; }
+ .svg-svgicons--7_2013-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2014-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2015-dims { width: 13px; height: 11px; }
+ .svg-svgicons--7_2027-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2028-dims { width: 16px; height: 16px; }
+ .svg-svgicons--7_2029-dims { width: 2px; height: 8px; }
+ .svg-svgicons--7_2040-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2041-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2042-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2043-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2051-dims { width: 56px; height: 1px; }
+ .svg-svgicons--7_2052-dims { width: 56px; height: 1px; }
+ .svg-svgicons--7_2053-dims { width: 891px; height: 1px; }
+ .svg-svgicons--7_2058-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2059-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2060-dims { width: 13px; height: 11px; }
+ .svg-svgicons--7_2073-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2074-dims { width: 16px; height: 16px; }
+ .svg-svgicons--7_2075-dims { width: 2px; height: 8px; }
+ .svg-svgicons--7_2086-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2087-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2088-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2089-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2097-dims { width: 80px; height: 1px; }
+ .svg-svgicons--7_2098-dims { width: 80px; height: 1px; }
+ .svg-svgicons--7_2104-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2105-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2106-dims { width: 13px; height: 11px; }
+ .svg-svgicons--7_2118-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2119-dims { width: 16px; height: 16px; }
+ .svg-svgicons--7_2120-dims { width: 2px; height: 8px; }
+ .svg-svgicons--7_2133-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2134-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2143-dims { width: 49px; height: 1px; }
+ .svg-svgicons--7_2144-dims { width: 49px; height: 1px; }
+ .svg-svgicons--7_2150-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2151-dims { width: 16px; height: 9px; }
+ .svg-svgicons--7_2164-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2165-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2166-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2167-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2168-dims { width: 891px; height: 1px; }
+ .svg-svgicons--7_2187-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2188-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2189-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2190-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2200-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2201-dims { width: 19px; height: 16px; }
+ .svg-svgicons--7_2202-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2203-dims { width: 15px; height: 16px; }
+ .svg-svgicons--7_2235-dims { width: 12px; height: 12px; }
+ .svg-svgicons--7_2236-dims { width: 11px; height: 11px; }
+ .svg-svgicons--7_2267-dims { width: 10px; height: 8px; }
+ .svg-svgicons--7_2272-dims { width: 63px; height: 1px; }
+ .svg-svgicons--7_2283-dims { width: 30px; height: 10px; }
+ .svg-svgicons--7_2284-dims { width: 9px; height: 8px; }
+ .svg-svgicons--7_2285-dims { width: 11px; height: 8px; }
+ .svg-svgicons--7_2286-dims { width: 9px; height: 8px; }
+ .svg-svgicons--7_2311-dims { width: 338px; height: 1px; }
+ .svg-svgicons--7_2319-dims { width: 338px; height: 1px; }
+ .svg-svgicons--7_2328-dims { width: 218px; height: 1px; }
+ .svg-svgicons--7_2336-dims { width: 218px; height: 1px; }
+ .svg-svgicons--7_2344-dims { width: 218px; height: 1px; }
+ .svg-svgicons--7_2373-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2375-dims { width: 16px; height: 16px; }
+ .svg-svgicons--7_2380-dims { width: 48px; height: 1px; }
+ .svg-svgicons--7_2387-dims { width: 10px; height: 8px; }
+ .svg-svgicons--7_2391-dims { width: 63px; height: 1px; }
+ .svg-svgicons--7_2396-dims { width: 20px; height: 20px; }
+ .svg-svgicons--7_2397-dims { width: 16px; height: 16px; }
+ .svg-svgicons--7_2400-dims { width: 30px; height: 10px; }
+ .svg-svgicons--7_2401-dims { width: 9px; height: 8px; }
+ .svg-svgicons--7_2402-dims { width: 11px; height: 8px; }
+ .svg-svgicons--7_2403-dims { width: 9px; height: 8px; }
+ .svg-svgicons--7_2407-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2409-dims { width: 22px; height: 22px; }
+ .svg-svgicons--7_2416-dims { width: 13px; height: 24px; }
+ .svg-svgicons--7_2417-dims { width: 13px; height: 11px; }
+ .svg-svgicons--7_2419-dims { width: 66px; height: 1px; }
+ .svg-svgicons--7_2420-dims { width: 52px; height: 1px; }
+ .svg-svgicons--7_2421-dims { width: 215px; height: 1px; }
+</style>
+
+<!--
+====================================================================================================
+-->
+
+    </head>
+    <body>
+        <header>
+            <h1>SVG stack preview</h1>
+            <p>This preview features an SVG stack. Please have a look at the HTML source for further details and be aware of the following constraints:</p>
+            <ul>
+                <li>Your browser has to <a href="https://caniuse.com/svg-fragment" target="_blank" rel="noopener noreferrer">support SVG fragment identifiers</a> for SVG stacks to work.</li>
+                <li>Support for SVG fragment identifiers hasn't always been that decent. For older browsers you will have to use some prolyfill like <a href="https://github.com/preciousforever/SVG-Stacker/blob/master/fixsvgstack.jquery.js" target="_blank" rel="noopener noreferrer">fixsvgstack.jquery.js</a>.</li>
+            </ul>
+        </header>
+        <section>
+
+<!--
+SVG stack
+====================================================================================================
+These SVG images make use of fragment identifiers (IDs) to reference certain portions of the
+external sprite. By default, all shapes inside the sprite are hidden by CSS. The `:target` pseudo
+selector is used to show the very shape that is referenced by the fragment identifier.
+-->
+
+            <ul>
+
+             <li title="favicons--21_31">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#favicons--21_31" class="svg-favicons--21_31-dims" alt="favicons--21_31">
+                    </div>
+                    <h2>favicons--21_31, </h2>
+                </li>
+             <li title="favicons--favicon">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#favicons--favicon" class="svg-favicons--favicon-dims" alt="favicons--favicon">
+                    </div>
+                    <h2>favicons--favicon, </h2>
+                </li>
+             <li title="logo">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#logo" class="svg-logo-dims" alt="logo">
+                    </div>
+                    <h2>logo, </h2>
+                </li>
+             <li title="svgicons--21_31">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_31" class="svg-svgicons--21_31-dims" alt="svgicons--21_31">
+                    </div>
+                    <h2>svgicons--21_31, </h2>
+                </li>
+             <li title="svgicons--21_32">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_32" class="svg-svgicons--21_32-dims" alt="svgicons--21_32">
+                    </div>
+                    <h2>svgicons--21_32, </h2>
+                </li>
+             <li title="svgicons--21_40">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_40" class="svg-svgicons--21_40-dims" alt="svgicons--21_40">
+                    </div>
+                    <h2>svgicons--21_40, </h2>
+                </li>
+             <li title="svgicons--21_41">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_41" class="svg-svgicons--21_41-dims" alt="svgicons--21_41">
+                    </div>
+                    <h2>svgicons--21_41, </h2>
+                </li>
+             <li title="svgicons--21_49">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_49" class="svg-svgicons--21_49-dims" alt="svgicons--21_49">
+                    </div>
+                    <h2>svgicons--21_49, </h2>
+                </li>
+             <li title="svgicons--21_55">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_55" class="svg-svgicons--21_55-dims" alt="svgicons--21_55">
+                    </div>
+                    <h2>svgicons--21_55, </h2>
+                </li>
+             <li title="svgicons--21_56">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--21_56" class="svg-svgicons--21_56-dims" alt="svgicons--21_56">
+                    </div>
+                    <h2>svgicons--21_56, </h2>
+                </li>
+             <li title="svgicons--34520_16">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_16" class="svg-svgicons--34520_16-dims" alt="svgicons--34520_16">
+                    </div>
+                    <h2>svgicons--34520_16, </h2>
+                </li>
+             <li title="svgicons--34520_17">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_17" class="svg-svgicons--34520_17-dims" alt="svgicons--34520_17">
+                    </div>
+                    <h2>svgicons--34520_17, </h2>
+                </li>
+             <li title="svgicons--34520_18">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_18" class="svg-svgicons--34520_18-dims" alt="svgicons--34520_18">
+                    </div>
+                    <h2>svgicons--34520_18, </h2>
+                </li>
+             <li title="svgicons--34520_22">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_22" class="svg-svgicons--34520_22-dims" alt="svgicons--34520_22">
+                    </div>
+                    <h2>svgicons--34520_22, </h2>
+                </li>
+             <li title="svgicons--34520_24">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_24" class="svg-svgicons--34520_24-dims" alt="svgicons--34520_24">
+                    </div>
+                    <h2>svgicons--34520_24, </h2>
+                </li>
+             <li title="svgicons--34520_25">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_25" class="svg-svgicons--34520_25-dims" alt="svgicons--34520_25">
+                    </div>
+                    <h2>svgicons--34520_25, </h2>
+                </li>
+             <li title="svgicons--34520_26">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_26" class="svg-svgicons--34520_26-dims" alt="svgicons--34520_26">
+                    </div>
+                    <h2>svgicons--34520_26, </h2>
+                </li>
+             <li title="svgicons--34520_31">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_31" class="svg-svgicons--34520_31-dims" alt="svgicons--34520_31">
+                    </div>
+                    <h2>svgicons--34520_31, </h2>
+                </li>
+             <li title="svgicons--34520_32">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_32" class="svg-svgicons--34520_32-dims" alt="svgicons--34520_32">
+                    </div>
+                    <h2>svgicons--34520_32, </h2>
+                </li>
+             <li title="svgicons--34520_36">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_36" class="svg-svgicons--34520_36-dims" alt="svgicons--34520_36">
+                    </div>
+                    <h2>svgicons--34520_36, </h2>
+                </li>
+             <li title="svgicons--34520_37">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_37" class="svg-svgicons--34520_37-dims" alt="svgicons--34520_37">
+                    </div>
+                    <h2>svgicons--34520_37, </h2>
+                </li>
+             <li title="svgicons--34520_42">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_42" class="svg-svgicons--34520_42-dims" alt="svgicons--34520_42">
+                    </div>
+                    <h2>svgicons--34520_42, </h2>
+                </li>
+             <li title="svgicons--34520_43">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_43" class="svg-svgicons--34520_43-dims" alt="svgicons--34520_43">
+                    </div>
+                    <h2>svgicons--34520_43, </h2>
+                </li>
+             <li title="svgicons--34520_47">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_47" class="svg-svgicons--34520_47-dims" alt="svgicons--34520_47">
+                    </div>
+                    <h2>svgicons--34520_47, </h2>
+                </li>
+             <li title="svgicons--34520_48">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_48" class="svg-svgicons--34520_48-dims" alt="svgicons--34520_48">
+                    </div>
+                    <h2>svgicons--34520_48, </h2>
+                </li>
+             <li title="svgicons--34520_49">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_49" class="svg-svgicons--34520_49-dims" alt="svgicons--34520_49">
+                    </div>
+                    <h2>svgicons--34520_49, </h2>
+                </li>
+             <li title="svgicons--34520_50">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_50" class="svg-svgicons--34520_50-dims" alt="svgicons--34520_50">
+                    </div>
+                    <h2>svgicons--34520_50, </h2>
+                </li>
+             <li title="svgicons--34520_51">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_51" class="svg-svgicons--34520_51-dims" alt="svgicons--34520_51">
+                    </div>
+                    <h2>svgicons--34520_51, </h2>
+                </li>
+             <li title="svgicons--34520_56">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_56" class="svg-svgicons--34520_56-dims" alt="svgicons--34520_56">
+                    </div>
+                    <h2>svgicons--34520_56, </h2>
+                </li>
+             <li title="svgicons--34520_57">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_57" class="svg-svgicons--34520_57-dims" alt="svgicons--34520_57">
+                    </div>
+                    <h2>svgicons--34520_57, </h2>
+                </li>
+             <li title="svgicons--34520_61">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_61" class="svg-svgicons--34520_61-dims" alt="svgicons--34520_61">
+                    </div>
+                    <h2>svgicons--34520_61, </h2>
+                </li>
+             <li title="svgicons--34520_62">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_62" class="svg-svgicons--34520_62-dims" alt="svgicons--34520_62">
+                    </div>
+                    <h2>svgicons--34520_62, </h2>
+                </li>
+             <li title="svgicons--34520_63">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_63" class="svg-svgicons--34520_63-dims" alt="svgicons--34520_63">
+                    </div>
+                    <h2>svgicons--34520_63, </h2>
+                </li>
+             <li title="svgicons--34520_64">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_64" class="svg-svgicons--34520_64-dims" alt="svgicons--34520_64">
+                    </div>
+                    <h2>svgicons--34520_64, </h2>
+                </li>
+             <li title="svgicons--34520_8">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34520_8" class="svg-svgicons--34520_8-dims" alt="svgicons--34520_8">
+                    </div>
+                    <h2>svgicons--34520_8, </h2>
+                </li>
+             <li title="svgicons--34521_103">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_103" class="svg-svgicons--34521_103-dims" alt="svgicons--34521_103">
+                    </div>
+                    <h2>svgicons--34521_103, </h2>
+                </li>
+             <li title="svgicons--34521_104">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_104" class="svg-svgicons--34521_104-dims" alt="svgicons--34521_104">
+                    </div>
+                    <h2>svgicons--34521_104, </h2>
+                </li>
+             <li title="svgicons--34521_107">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_107" class="svg-svgicons--34521_107-dims" alt="svgicons--34521_107">
+                    </div>
+                    <h2>svgicons--34521_107, </h2>
+                </li>
+             <li title="svgicons--34521_108">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_108" class="svg-svgicons--34521_108-dims" alt="svgicons--34521_108">
+                    </div>
+                    <h2>svgicons--34521_108, </h2>
+                </li>
+             <li title="svgicons--34521_114">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_114" class="svg-svgicons--34521_114-dims" alt="svgicons--34521_114">
+                    </div>
+                    <h2>svgicons--34521_114, </h2>
+                </li>
+             <li title="svgicons--34521_115">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_115" class="svg-svgicons--34521_115-dims" alt="svgicons--34521_115">
+                    </div>
+                    <h2>svgicons--34521_115, </h2>
+                </li>
+             <li title="svgicons--34521_118">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_118" class="svg-svgicons--34521_118-dims" alt="svgicons--34521_118">
+                    </div>
+                    <h2>svgicons--34521_118, </h2>
+                </li>
+             <li title="svgicons--34521_119">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_119" class="svg-svgicons--34521_119-dims" alt="svgicons--34521_119">
+                    </div>
+                    <h2>svgicons--34521_119, </h2>
+                </li>
+             <li title="svgicons--34521_126">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_126" class="svg-svgicons--34521_126-dims" alt="svgicons--34521_126">
+                    </div>
+                    <h2>svgicons--34521_126, </h2>
+                </li>
+             <li title="svgicons--34521_127">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_127" class="svg-svgicons--34521_127-dims" alt="svgicons--34521_127">
+                    </div>
+                    <h2>svgicons--34521_127, </h2>
+                </li>
+             <li title="svgicons--34521_136">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_136" class="svg-svgicons--34521_136-dims" alt="svgicons--34521_136">
+                    </div>
+                    <h2>svgicons--34521_136, </h2>
+                </li>
+             <li title="svgicons--34521_137">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_137" class="svg-svgicons--34521_137-dims" alt="svgicons--34521_137">
+                    </div>
+                    <h2>svgicons--34521_137, </h2>
+                </li>
+             <li title="svgicons--34521_138">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_138" class="svg-svgicons--34521_138-dims" alt="svgicons--34521_138">
+                    </div>
+                    <h2>svgicons--34521_138, </h2>
+                </li>
+             <li title="svgicons--34521_139">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_139" class="svg-svgicons--34521_139-dims" alt="svgicons--34521_139">
+                    </div>
+                    <h2>svgicons--34521_139, </h2>
+                </li>
+             <li title="svgicons--34521_140">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_140" class="svg-svgicons--34521_140-dims" alt="svgicons--34521_140">
+                    </div>
+                    <h2>svgicons--34521_140, </h2>
+                </li>
+             <li title="svgicons--34521_141">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_141" class="svg-svgicons--34521_141-dims" alt="svgicons--34521_141">
+                    </div>
+                    <h2>svgicons--34521_141, </h2>
+                </li>
+             <li title="svgicons--34521_79">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_79" class="svg-svgicons--34521_79-dims" alt="svgicons--34521_79">
+                    </div>
+                    <h2>svgicons--34521_79, </h2>
+                </li>
+             <li title="svgicons--34521_95">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_95" class="svg-svgicons--34521_95-dims" alt="svgicons--34521_95">
+                    </div>
+                    <h2>svgicons--34521_95, </h2>
+                </li>
+             <li title="svgicons--34521_96">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_96" class="svg-svgicons--34521_96-dims" alt="svgicons--34521_96">
+                    </div>
+                    <h2>svgicons--34521_96, </h2>
+                </li>
+             <li title="svgicons--34521_97">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--34521_97" class="svg-svgicons--34521_97-dims" alt="svgicons--34521_97">
+                    </div>
+                    <h2>svgicons--34521_97, </h2>
+                </li>
+             <li title="svgicons--4907_8">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--4907_8" class="svg-svgicons--4907_8-dims" alt="svgicons--4907_8">
+                    </div>
+                    <h2>svgicons--4907_8, </h2>
+                </li>
+             <li title="svgicons--4907_9">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--4907_9" class="svg-svgicons--4907_9-dims" alt="svgicons--4907_9">
+                    </div>
+                    <h2>svgicons--4907_9, </h2>
+                </li>
+             <li title="svgicons--7_2001">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2001" class="svg-svgicons--7_2001-dims" alt="svgicons--7_2001">
+                    </div>
+                    <h2>svgicons--7_2001, </h2>
+                </li>
+             <li title="svgicons--7_2002">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2002" class="svg-svgicons--7_2002-dims" alt="svgicons--7_2002">
+                    </div>
+                    <h2>svgicons--7_2002, </h2>
+                </li>
+             <li title="svgicons--7_2003">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2003" class="svg-svgicons--7_2003-dims" alt="svgicons--7_2003">
+                    </div>
+                    <h2>svgicons--7_2003, </h2>
+                </li>
+             <li title="svgicons--7_2006">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2006" class="svg-svgicons--7_2006-dims" alt="svgicons--7_2006">
+                    </div>
+                    <h2>svgicons--7_2006, </h2>
+                </li>
+             <li title="svgicons--7_2007">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2007" class="svg-svgicons--7_2007-dims" alt="svgicons--7_2007">
+                    </div>
+                    <h2>svgicons--7_2007, </h2>
+                </li>
+             <li title="svgicons--7_2013">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2013" class="svg-svgicons--7_2013-dims" alt="svgicons--7_2013">
+                    </div>
+                    <h2>svgicons--7_2013, </h2>
+                </li>
+             <li title="svgicons--7_2014">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2014" class="svg-svgicons--7_2014-dims" alt="svgicons--7_2014">
+                    </div>
+                    <h2>svgicons--7_2014, </h2>
+                </li>
+             <li title="svgicons--7_2015">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2015" class="svg-svgicons--7_2015-dims" alt="svgicons--7_2015">
+                    </div>
+                    <h2>svgicons--7_2015, </h2>
+                </li>
+             <li title="svgicons--7_2027">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2027" class="svg-svgicons--7_2027-dims" alt="svgicons--7_2027">
+                    </div>
+                    <h2>svgicons--7_2027, </h2>
+                </li>
+             <li title="svgicons--7_2028">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2028" class="svg-svgicons--7_2028-dims" alt="svgicons--7_2028">
+                    </div>
+                    <h2>svgicons--7_2028, </h2>
+                </li>
+             <li title="svgicons--7_2029">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2029" class="svg-svgicons--7_2029-dims" alt="svgicons--7_2029">
+                    </div>
+                    <h2>svgicons--7_2029, </h2>
+                </li>
+             <li title="svgicons--7_2040">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2040" class="svg-svgicons--7_2040-dims" alt="svgicons--7_2040">
+                    </div>
+                    <h2>svgicons--7_2040, </h2>
+                </li>
+             <li title="svgicons--7_2041">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2041" class="svg-svgicons--7_2041-dims" alt="svgicons--7_2041">
+                    </div>
+                    <h2>svgicons--7_2041, </h2>
+                </li>
+             <li title="svgicons--7_2042">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2042" class="svg-svgicons--7_2042-dims" alt="svgicons--7_2042">
+                    </div>
+                    <h2>svgicons--7_2042, </h2>
+                </li>
+             <li title="svgicons--7_2043">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2043" class="svg-svgicons--7_2043-dims" alt="svgicons--7_2043">
+                    </div>
+                    <h2>svgicons--7_2043, </h2>
+                </li>
+             <li title="svgicons--7_2051">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2051" class="svg-svgicons--7_2051-dims" alt="svgicons--7_2051">
+                    </div>
+                    <h2>svgicons--7_2051, </h2>
+                </li>
+             <li title="svgicons--7_2052">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2052" class="svg-svgicons--7_2052-dims" alt="svgicons--7_2052">
+                    </div>
+                    <h2>svgicons--7_2052, </h2>
+                </li>
+             <li title="svgicons--7_2053">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2053" class="svg-svgicons--7_2053-dims" alt="svgicons--7_2053">
+                    </div>
+                    <h2>svgicons--7_2053, </h2>
+                </li>
+             <li title="svgicons--7_2058">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2058" class="svg-svgicons--7_2058-dims" alt="svgicons--7_2058">
+                    </div>
+                    <h2>svgicons--7_2058, </h2>
+                </li>
+             <li title="svgicons--7_2059">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2059" class="svg-svgicons--7_2059-dims" alt="svgicons--7_2059">
+                    </div>
+                    <h2>svgicons--7_2059, </h2>
+                </li>
+             <li title="svgicons--7_2060">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2060" class="svg-svgicons--7_2060-dims" alt="svgicons--7_2060">
+                    </div>
+                    <h2>svgicons--7_2060, </h2>
+                </li>
+             <li title="svgicons--7_2073">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2073" class="svg-svgicons--7_2073-dims" alt="svgicons--7_2073">
+                    </div>
+                    <h2>svgicons--7_2073, </h2>
+                </li>
+             <li title="svgicons--7_2074">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2074" class="svg-svgicons--7_2074-dims" alt="svgicons--7_2074">
+                    </div>
+                    <h2>svgicons--7_2074, </h2>
+                </li>
+             <li title="svgicons--7_2075">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2075" class="svg-svgicons--7_2075-dims" alt="svgicons--7_2075">
+                    </div>
+                    <h2>svgicons--7_2075, </h2>
+                </li>
+             <li title="svgicons--7_2086">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2086" class="svg-svgicons--7_2086-dims" alt="svgicons--7_2086">
+                    </div>
+                    <h2>svgicons--7_2086, </h2>
+                </li>
+             <li title="svgicons--7_2087">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2087" class="svg-svgicons--7_2087-dims" alt="svgicons--7_2087">
+                    </div>
+                    <h2>svgicons--7_2087, </h2>
+                </li>
+             <li title="svgicons--7_2088">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2088" class="svg-svgicons--7_2088-dims" alt="svgicons--7_2088">
+                    </div>
+                    <h2>svgicons--7_2088, </h2>
+                </li>
+             <li title="svgicons--7_2089">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2089" class="svg-svgicons--7_2089-dims" alt="svgicons--7_2089">
+                    </div>
+                    <h2>svgicons--7_2089, </h2>
+                </li>
+             <li title="svgicons--7_2097">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2097" class="svg-svgicons--7_2097-dims" alt="svgicons--7_2097">
+                    </div>
+                    <h2>svgicons--7_2097, </h2>
+                </li>
+             <li title="svgicons--7_2098">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2098" class="svg-svgicons--7_2098-dims" alt="svgicons--7_2098">
+                    </div>
+                    <h2>svgicons--7_2098, </h2>
+                </li>
+             <li title="svgicons--7_2104">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2104" class="svg-svgicons--7_2104-dims" alt="svgicons--7_2104">
+                    </div>
+                    <h2>svgicons--7_2104, </h2>
+                </li>
+             <li title="svgicons--7_2105">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2105" class="svg-svgicons--7_2105-dims" alt="svgicons--7_2105">
+                    </div>
+                    <h2>svgicons--7_2105, </h2>
+                </li>
+             <li title="svgicons--7_2106">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2106" class="svg-svgicons--7_2106-dims" alt="svgicons--7_2106">
+                    </div>
+                    <h2>svgicons--7_2106, </h2>
+                </li>
+             <li title="svgicons--7_2118">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2118" class="svg-svgicons--7_2118-dims" alt="svgicons--7_2118">
+                    </div>
+                    <h2>svgicons--7_2118, </h2>
+                </li>
+             <li title="svgicons--7_2119">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2119" class="svg-svgicons--7_2119-dims" alt="svgicons--7_2119">
+                    </div>
+                    <h2>svgicons--7_2119, </h2>
+                </li>
+             <li title="svgicons--7_2120">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2120" class="svg-svgicons--7_2120-dims" alt="svgicons--7_2120">
+                    </div>
+                    <h2>svgicons--7_2120, </h2>
+                </li>
+             <li title="svgicons--7_2133">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2133" class="svg-svgicons--7_2133-dims" alt="svgicons--7_2133">
+                    </div>
+                    <h2>svgicons--7_2133, </h2>
+                </li>
+             <li title="svgicons--7_2134">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2134" class="svg-svgicons--7_2134-dims" alt="svgicons--7_2134">
+                    </div>
+                    <h2>svgicons--7_2134, </h2>
+                </li>
+             <li title="svgicons--7_2143">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2143" class="svg-svgicons--7_2143-dims" alt="svgicons--7_2143">
+                    </div>
+                    <h2>svgicons--7_2143, </h2>
+                </li>
+             <li title="svgicons--7_2144">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2144" class="svg-svgicons--7_2144-dims" alt="svgicons--7_2144">
+                    </div>
+                    <h2>svgicons--7_2144, </h2>
+                </li>
+             <li title="svgicons--7_2150">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2150" class="svg-svgicons--7_2150-dims" alt="svgicons--7_2150">
+                    </div>
+                    <h2>svgicons--7_2150, </h2>
+                </li>
+             <li title="svgicons--7_2151">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2151" class="svg-svgicons--7_2151-dims" alt="svgicons--7_2151">
+                    </div>
+                    <h2>svgicons--7_2151, </h2>
+                </li>
+             <li title="svgicons--7_2164">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2164" class="svg-svgicons--7_2164-dims" alt="svgicons--7_2164">
+                    </div>
+                    <h2>svgicons--7_2164, </h2>
+                </li>
+             <li title="svgicons--7_2165">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2165" class="svg-svgicons--7_2165-dims" alt="svgicons--7_2165">
+                    </div>
+                    <h2>svgicons--7_2165, </h2>
+                </li>
+             <li title="svgicons--7_2166">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2166" class="svg-svgicons--7_2166-dims" alt="svgicons--7_2166">
+                    </div>
+                    <h2>svgicons--7_2166, </h2>
+                </li>
+             <li title="svgicons--7_2167">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2167" class="svg-svgicons--7_2167-dims" alt="svgicons--7_2167">
+                    </div>
+                    <h2>svgicons--7_2167, </h2>
+                </li>
+             <li title="svgicons--7_2168">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2168" class="svg-svgicons--7_2168-dims" alt="svgicons--7_2168">
+                    </div>
+                    <h2>svgicons--7_2168, </h2>
+                </li>
+             <li title="svgicons--7_2187">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2187" class="svg-svgicons--7_2187-dims" alt="svgicons--7_2187">
+                    </div>
+                    <h2>svgicons--7_2187, </h2>
+                </li>
+             <li title="svgicons--7_2188">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2188" class="svg-svgicons--7_2188-dims" alt="svgicons--7_2188">
+                    </div>
+                    <h2>svgicons--7_2188, </h2>
+                </li>
+             <li title="svgicons--7_2189">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2189" class="svg-svgicons--7_2189-dims" alt="svgicons--7_2189">
+                    </div>
+                    <h2>svgicons--7_2189, </h2>
+                </li>
+             <li title="svgicons--7_2190">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2190" class="svg-svgicons--7_2190-dims" alt="svgicons--7_2190">
+                    </div>
+                    <h2>svgicons--7_2190, </h2>
+                </li>
+             <li title="svgicons--7_2200">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2200" class="svg-svgicons--7_2200-dims" alt="svgicons--7_2200">
+                    </div>
+                    <h2>svgicons--7_2200, </h2>
+                </li>
+             <li title="svgicons--7_2201">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2201" class="svg-svgicons--7_2201-dims" alt="svgicons--7_2201">
+                    </div>
+                    <h2>svgicons--7_2201, </h2>
+                </li>
+             <li title="svgicons--7_2202">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2202" class="svg-svgicons--7_2202-dims" alt="svgicons--7_2202">
+                    </div>
+                    <h2>svgicons--7_2202, </h2>
+                </li>
+             <li title="svgicons--7_2203">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2203" class="svg-svgicons--7_2203-dims" alt="svgicons--7_2203">
+                    </div>
+                    <h2>svgicons--7_2203, </h2>
+                </li>
+             <li title="svgicons--7_2235">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2235" class="svg-svgicons--7_2235-dims" alt="svgicons--7_2235">
+                    </div>
+                    <h2>svgicons--7_2235, </h2>
+                </li>
+             <li title="svgicons--7_2236">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2236" class="svg-svgicons--7_2236-dims" alt="svgicons--7_2236">
+                    </div>
+                    <h2>svgicons--7_2236, </h2>
+                </li>
+             <li title="svgicons--7_2267">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2267" class="svg-svgicons--7_2267-dims" alt="svgicons--7_2267">
+                    </div>
+                    <h2>svgicons--7_2267, </h2>
+                </li>
+             <li title="svgicons--7_2272">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2272" class="svg-svgicons--7_2272-dims" alt="svgicons--7_2272">
+                    </div>
+                    <h2>svgicons--7_2272, </h2>
+                </li>
+             <li title="svgicons--7_2283">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2283" class="svg-svgicons--7_2283-dims" alt="svgicons--7_2283">
+                    </div>
+                    <h2>svgicons--7_2283, </h2>
+                </li>
+             <li title="svgicons--7_2284">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2284" class="svg-svgicons--7_2284-dims" alt="svgicons--7_2284">
+                    </div>
+                    <h2>svgicons--7_2284, </h2>
+                </li>
+             <li title="svgicons--7_2285">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2285" class="svg-svgicons--7_2285-dims" alt="svgicons--7_2285">
+                    </div>
+                    <h2>svgicons--7_2285, </h2>
+                </li>
+             <li title="svgicons--7_2286">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2286" class="svg-svgicons--7_2286-dims" alt="svgicons--7_2286">
+                    </div>
+                    <h2>svgicons--7_2286, </h2>
+                </li>
+             <li title="svgicons--7_2311">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2311" class="svg-svgicons--7_2311-dims" alt="svgicons--7_2311">
+                    </div>
+                    <h2>svgicons--7_2311, </h2>
+                </li>
+             <li title="svgicons--7_2319">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2319" class="svg-svgicons--7_2319-dims" alt="svgicons--7_2319">
+                    </div>
+                    <h2>svgicons--7_2319, </h2>
+                </li>
+             <li title="svgicons--7_2328">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2328" class="svg-svgicons--7_2328-dims" alt="svgicons--7_2328">
+                    </div>
+                    <h2>svgicons--7_2328, </h2>
+                </li>
+             <li title="svgicons--7_2336">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2336" class="svg-svgicons--7_2336-dims" alt="svgicons--7_2336">
+                    </div>
+                    <h2>svgicons--7_2336, </h2>
+                </li>
+             <li title="svgicons--7_2344">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2344" class="svg-svgicons--7_2344-dims" alt="svgicons--7_2344">
+                    </div>
+                    <h2>svgicons--7_2344, </h2>
+                </li>
+             <li title="svgicons--7_2373">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2373" class="svg-svgicons--7_2373-dims" alt="svgicons--7_2373">
+                    </div>
+                    <h2>svgicons--7_2373, </h2>
+                </li>
+             <li title="svgicons--7_2375">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2375" class="svg-svgicons--7_2375-dims" alt="svgicons--7_2375">
+                    </div>
+                    <h2>svgicons--7_2375, </h2>
+                </li>
+             <li title="svgicons--7_2380">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2380" class="svg-svgicons--7_2380-dims" alt="svgicons--7_2380">
+                    </div>
+                    <h2>svgicons--7_2380, </h2>
+                </li>
+             <li title="svgicons--7_2387">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2387" class="svg-svgicons--7_2387-dims" alt="svgicons--7_2387">
+                    </div>
+                    <h2>svgicons--7_2387, </h2>
+                </li>
+             <li title="svgicons--7_2391">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2391" class="svg-svgicons--7_2391-dims" alt="svgicons--7_2391">
+                    </div>
+                    <h2>svgicons--7_2391, </h2>
+                </li>
+             <li title="svgicons--7_2396">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2396" class="svg-svgicons--7_2396-dims" alt="svgicons--7_2396">
+                    </div>
+                    <h2>svgicons--7_2396, </h2>
+                </li>
+             <li title="svgicons--7_2397">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2397" class="svg-svgicons--7_2397-dims" alt="svgicons--7_2397">
+                    </div>
+                    <h2>svgicons--7_2397, </h2>
+                </li>
+             <li title="svgicons--7_2400">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2400" class="svg-svgicons--7_2400-dims" alt="svgicons--7_2400">
+                    </div>
+                    <h2>svgicons--7_2400, </h2>
+                </li>
+             <li title="svgicons--7_2401">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2401" class="svg-svgicons--7_2401-dims" alt="svgicons--7_2401">
+                    </div>
+                    <h2>svgicons--7_2401, </h2>
+                </li>
+             <li title="svgicons--7_2402">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2402" class="svg-svgicons--7_2402-dims" alt="svgicons--7_2402">
+                    </div>
+                    <h2>svgicons--7_2402, </h2>
+                </li>
+             <li title="svgicons--7_2403">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2403" class="svg-svgicons--7_2403-dims" alt="svgicons--7_2403">
+                    </div>
+                    <h2>svgicons--7_2403, </h2>
+                </li>
+             <li title="svgicons--7_2407">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2407" class="svg-svgicons--7_2407-dims" alt="svgicons--7_2407">
+                    </div>
+                    <h2>svgicons--7_2407, </h2>
+                </li>
+             <li title="svgicons--7_2409">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2409" class="svg-svgicons--7_2409-dims" alt="svgicons--7_2409">
+                    </div>
+                    <h2>svgicons--7_2409, </h2>
+                </li>
+             <li title="svgicons--7_2416">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2416" class="svg-svgicons--7_2416-dims" alt="svgicons--7_2416">
+                    </div>
+                    <h2>svgicons--7_2416, </h2>
+                </li>
+             <li title="svgicons--7_2417">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2417" class="svg-svgicons--7_2417-dims" alt="svgicons--7_2417">
+                    </div>
+                    <h2>svgicons--7_2417, </h2>
+                </li>
+             <li title="svgicons--7_2419">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2419" class="svg-svgicons--7_2419-dims" alt="svgicons--7_2419">
+                    </div>
+                    <h2>svgicons--7_2419, </h2>
+                </li>
+             <li title="svgicons--7_2420">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2420" class="svg-svgicons--7_2420-dims" alt="svgicons--7_2420">
+                    </div>
+                    <h2>svgicons--7_2420, </h2>
+                </li>
+             <li title="svgicons--7_2421">
+                    <div class="icon-box">
+                        <img src="../sprite.stack.svg#svgicons--7_2421" class="svg-svgicons--7_2421-dims" alt="svgicons--7_2421">
+                    </div>
+                    <h2>svgicons--7_2421, </h2>
+                </li>
+         </ul>
+
+<!--
+====================================================================================================
+-->
+
+        </section>
+        <footer>
+            <p>Generated at Fri, 13 Feb 2026 09:49:48 GMT by <a href="https://github.com/svg-sprite/svg-sprite" target="_blank" rel="noopener noreferrer">svg-sprite</a>.</p>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+/* =============  Fonts ================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* =============  Base ================= */
+@import './base/reset';
+@import './base/vars';
+@import './base/fontsAutoGen';
+@import './base/base';
+@import './base/mobile-nav-btn';
+@import './base/mobile-nav';
+
+/* =============  Blocks ================= */
+// @import './blocks/*.scss';
+@import './blocks/header';
+@import './blocks/main';
+@import './blocks/footer';
+
+/* =============  Modals ================= */
+@import './modals/delivery-modal.scss';
+@import './modals/payment-modal.scss';
+
+/* =============  Media ================= */
+/* @import './base/media.css'; */
+
+/* No styles code below. Only in modules */
+/* Не пишите CSS код ниже. Только в подключаемых файлах */

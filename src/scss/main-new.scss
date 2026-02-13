@@ -1,0 +1,14 @@
+/* Base */
+@use './base/reset';
+@use './base/vars';
+@use './base/fontsAutoGen';
+@use './base/base';
+
+/* Blocks */
+// @use './blocks/*.scss';
+@use './blocks/header';
+@use './blocks/main';
+@use './blocks/footer';
+
+/* No styles code below. Only in modules */
+/* Не пишите CSS код ниже. Только в подключаемых файлах */
